@@ -993,7 +993,10 @@ def deploy_files(conn, root_dir, opts, master_nodes, slave_nodes, modules):
         # Spark-only custom deploy
         spark_v = "%s|%s" % (opts.spark_git_repo, opts.spark_version)
         tachyon_v = ""
-        print("Deploying Spark via git hash; Tachyon won't be set up")
+        print("Deploying Spark via git hash")
+
+    if not tachyon_v:
+        print("Tachyon won't be set up; no version provided")
         modules = filter(lambda x: x != "tachyon", modules)
 
     master_addresses = [get_dns_name(i, opts.private_ips) for i in master_nodes]
